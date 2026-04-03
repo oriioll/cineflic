@@ -8,7 +8,7 @@ import { ref, onMounted } from 'vue'
  * @author Oriol Plazas León
  * @since 03/04/2026
  */
-export const useUsername = () => {
+export const useGetUserOrNull = () => {
   const user = ref<User | null>(null)
   onMounted(async () => {
     user.value = await getCurrentSession()

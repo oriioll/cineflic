@@ -1,8 +1,6 @@
-/* Importación de Onest */
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* --- PALETA DARK SILVER --- */
     --bg-main: #0a0a0a;
     --bg-card: #141414;
     --silver-light: #f5f5f5;
@@ -78,14 +76,4 @@ p {
 small {
     font-size: 0.8rem;
     color: var(--silver-dark);
-}
-
-/* --- BORDES PLATEADOS CLEAN --- */
-.border-silver {
-    border: 1px solid var(--silver-dark);
-    transition: border-color 0.3s ease;
-}
-
-.border-silver:hover {
-    border-color: var(--silver-main);
 }

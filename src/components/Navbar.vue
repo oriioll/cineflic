@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useGetUserOrNull } from '@/composables/handleAuth';
+const { user } = useGetUserOrNull()
 </script>
 
 <template>
@@ -23,7 +25,15 @@
                     <a href="/coleccion">Mi colección</a>
                 </li>
                 <li>
-                    <a href="">Inicia Sesion</a>
+                    <a v-if="user == null" class="login" href="/login">Inicia Sesion</a>
+                    <a v-else class="profile" href="/perfil">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span>Perfil</span>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -70,7 +80,6 @@ li {
 li a {
     color: var(--silver-light);
     font-size: var(--step-0);
-    text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
     letter-spacing: -0.02em;
@@ -122,5 +131,33 @@ li a:hover {
     font-family: 'Onest';
     color: var(--silver-light);
     font-size: var(--step-0);
+}
+
+.login {
+    background-color: var(--accent-special);
+    border-radius: 12px;
+    padding: .5rem;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+li a.login:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .25rem;
+    color: var(--silver-main);
+}
+
+.profile svg {
+    color: var(--silver-main);
 }
 </style>
