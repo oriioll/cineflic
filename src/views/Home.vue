@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <RouterView />
+    <h1>HOOOME</h1>
 </template>
 
 <style scoped></style>
