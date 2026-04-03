@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <h1>HOOOME</h1>
+    <h1>HOME VIEW</h1>
 </template>
 
 <style scoped></style>

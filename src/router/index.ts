@@ -8,12 +8,13 @@ const router = createRouter({
   ],
 })
 
+/*
 // Navigation guard
 router.beforeEach((to) => {
   const isLoggedIn = false
   if (to.meta.requiresAuth && !isLoggedIn) {
     return '/login'
   }
-})
+})*/
 
 export default router
