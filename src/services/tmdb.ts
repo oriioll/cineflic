@@ -4,14 +4,18 @@ const API_TOKEN = import.meta.env.VITE_TMDB_API_TOKEN
 const headers = { Authorization: `Bearer ${API_TOKEN}` }
 
 /**
- *
+ * Fetches the TMDB API to the endpoint specified in spanish
  * @param endpoint The endpoint of TMDB you want to fetch
  * @returns {Promise<Object>} The response of the fetch
+ * @throws Error - When !response.ok
  * @author Oriol Plazas Lrón
  * @since 03/04/2026
  */
 const fetchTMDB = async (endpoint: string): Promise<Object> => {
-  const response = await fetch(BASE_URL + endpoint, { headers })
+  const separator = endpoint.includes('?') ? '&' : '?'
+  //Set lang to spanish
+  const lang = `${separator}language=es-ES`
+  const response = await fetch(BASE_URL + endpoint + lang, { headers })
   if (!response.ok) {
     throw new Error(`TMDB ERROR [${response.status}]: Endpoint: ${endpoint}`)
   }
@@ -66,7 +70,7 @@ export const getMovieById = (movieId: number): Promise<Object> => fetchTMDB(`/mo
  * @see fetchTMDB()
  */
 export const getMovieVideoById = (movieId: number): Promise<Object> =>
-  fetchTMDB(`/movie/${movieId}/videos`)
+  fetchTMDB(`/movie/${movieId}/videos?include_video_language=es,en`)
 
 /**
  * Get the cast and crew for a specific movie

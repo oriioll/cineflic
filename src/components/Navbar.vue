@@ -93,6 +93,10 @@ li a:hover {
     transition: all .3s ease;
 }
 
+.searcher:hover {
+    filter: brightness(1.1);
+}
+
 .searcher:active,
 .searcher:focus {
     border: solid 2px var(--accent-special);
