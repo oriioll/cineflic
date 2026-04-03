@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useGetUserOrNull } from '@/composables/handleAuth';
 const { user } = useGetUserOrNull()
+
+const submenuOpened = ref(false)
+
+/**
+ * Toggles the submenuOpened reactive boolean variable
+ */
+const toggleSubmenu = () => {
+    submenuOpened.value = submenuOpened.value ? false : true
+}
 </script>
 
 <template>
@@ -13,30 +23,62 @@ const { user } = useGetUserOrNull()
             </svg>
             <input class="searcherInput" type="text" placeholder="Busca una pelicula...">
         </div>
-        <nav>
+        <nav class="right">
             <ul>
                 <li>
-                    <a href="/popular">Populares</a>
+                    <RouterLink to="/popular" class="head">Populares</RouterLink>
                 </li>
                 <li>
-                    <a href="/generos">Generos</a>
+                    <RouterLink to="/generos" class="head">Generos</RouterLink>
                 </li>
                 <li>
-                    <a href="/coleccion">Mi colección</a>
+                    <RouterLink to="/coleccion" class="head">Mi colección</RouterLink>
                 </li>
                 <li>
-                    <a v-if="user == null" class="login" href="/login">Inicia Sesion</a>
-                    <a v-else class="profile" href="/perfil">
+                    <RouterLink v-if="user == null" to="/login" class="login head">Inicia Sesion</RouterLink>
+                    <RouterLink v-else to="/perfil" class="profile head">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
                                 clip-rule="evenodd" />
                         </svg>
                         <span>Perfil</span>
-                    </a>
+                    </RouterLink>
                 </li>
             </ul>
         </nav>
+        <button class="toggle" @click="toggleSubmenu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
+                    d="M20 7H4m16 5H4m16 5H4" />
+            </svg>
+        </button>
+        <Transition name="dropdown">
+            <nav v-if="submenuOpened" class="submenu">
+                <ul>
+                    <li>
+                        <RouterLink v-if="user == null" to="/login" class="login option">Inicia Sesion</RouterLink>
+                        <RouterLink v-else to="/perfil" class="profile option">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>Perfil</span>
+                        </RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/popular" class="option">Populares</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/generos" class="option">Generos</RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink to="/coleccion" class="option">Mi colección</RouterLink>
+                    </li>
+                </ul>
+            </nav>
+        </Transition>
     </header>
 </template>
 
@@ -48,6 +90,8 @@ header {
     justify-content: space-around;
     align-items: center;
     gap: 1rem;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .logo {
@@ -77,7 +121,7 @@ li {
     list-style-type: none;
 }
 
-li a {
+.head {
     color: var(--silver-light);
     font-size: var(--step-0);
     font-weight: bold;
@@ -87,7 +131,7 @@ li a {
     transition: all .3s ease;
 }
 
-li a:hover {
+.head:hover {
     opacity: .75;
 }
 
@@ -159,5 +203,80 @@ li a.login:hover {
 
 .profile svg {
     color: var(--silver-main);
+}
+
+.toggle {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggle svg {
+    color: var(--silver-light);
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.toggle svg:hover {
+    opacity: .7;
+}
+
+.submenu {
+    position: absolute;
+    top: 55px;
+    right: 10px;
+    width: 160px;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: var(--bg-card);
+    box-shadow: rgba(136, 136, 136, 0.07) 0px 4px 10px, rgba(128, 128, 128, 0.02) 0px 6px;
+}
+
+.submenu ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.option {
+    color: var(--silver-light);
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.option:hover {
+    opacity: .75;
+}
+
+.dropdown-enter-active,
+.dropdown-leave-active {
+    transition: all 0.25s ease;
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+@media only screen and (max-width: 1000px) {
+    .right {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1001px) {
+    .toggle {
+        display: none;
+    }
 }
 </style>
