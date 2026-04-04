@@ -4,6 +4,7 @@ import MovieItem from '@/components/MovieItem.vue';
 import { getPopulars } from '@/services/tmdb.ts'
 import { ref, onMounted } from 'vue'
 import type { Movie } from '@/types/tmbdTypes.ts'
+import { getSpanishWrittenMonth } from '@/helpers/helpers.ts'
 
 const popularMovies = ref<Movie[]>([])
 
@@ -19,12 +20,22 @@ onMounted(async () => {
     }
 })
 
+const date = new Date()
+const year = date.getFullYear()
+const month = date.getMonth()
+const normalizedMonth = getSpanishWrittenMonth(month + 1)
+
 </script>
 
 <template>
     <Navbar />
     <main>
-        <h1>Populares</h1>
+        <div class="top">
+            <h1>Populares - {{ normalizedMonth + ' ' + year }}</h1>
+            <article>
+                <p>filter</p>
+            </article>
+        </div>
         <section class="movieGrid">
             <MovieItem v-for="movie in popularMovies" :key="movie.id" :movie="movie" />
         </section>
@@ -42,6 +53,13 @@ main {
 .movieGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
 }
 </style>
