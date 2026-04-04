@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 import type { Movie } from '@/types/tmbdTypes.ts'
 const props = defineProps<{
     movie: Movie
@@ -8,17 +11,21 @@ const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w200'
 
 const round1 = (num?: number) => num == null ? null : Math.round(num * 10) / 10;
 const roundedVote = round1(props.movie.vote_average)
+
+const goToDetail = () => {
+    router.push(`/movie/${props.movie.id}`)
+}
 </script>
 
 <template>
-    <article>
+    <article @click="goToDetail">
         <img :src="IMG_BASE_URL + movie.poster_path" :alt="'Imagen de' + movie.title">
         <h4>{{ movie.title }}</h4>
         <div class="bottom">
             <p>{{ normalizedDate }}</p>
             <p><strong>{{ roundedVote }}</strong>/10</p>
         </div>
-        <button>
+        <button @click="goToDetail">
             Detalles
         </button>
     </article>
