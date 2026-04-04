@@ -65,4 +65,21 @@ h4 {
 .bottom p {
     font-size: .8rem;
 }
+
+button {
+    font-family: 'Onest', sans-serif;
+    font-weight: 600;
+    border: none;
+    padding: .25rem;
+    border-radius: 7px;
+    font-size: .9rem;
+    color: var(--silver-light);
+    background-color: var(--silver-dark);
+    transition: all .3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+}
 </style>
