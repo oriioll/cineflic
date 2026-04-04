@@ -6,7 +6,8 @@ import Navbar from '@/components/Navbar.vue';
     <Navbar />
     <main>
         <h1>HOME VIEW</h1>
-        <pre>
+        <div class="todo">
+            <pre>
         PASSOS ENVIAR QUERIES INPUT A HOME
         1. Event input al search bar
 
@@ -26,11 +27,36 @@ import Navbar from '@/components/Navbar.vue';
         ja que canvia per event input i fer v-for
         pel resultat
     </pre>
+            <pre>
+        FIXES:
+        1. Scroll mobil
+
+        2. Card Movies render mobil 
+        (fer imatge mes petita)
+
+        3. Header Movil - Fer logo mes petit 
+        i a la esquerra
+
+        4. Scroll vertical movil a detail movie view 
+
+        5. A movie detail view cambiar a movil 
+        space around per center i gap
+
+        6. Fix router Home page navbar
+    </pre>
+        </div>
+
     </main>
 
 </template>
 
 <style scoped>
+.todo {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -40,6 +66,7 @@ main {
 }
 
 pre {
+    padding: 1rem .5rem;
     font-family: 'Onest';
     font-weight: bold;
     border: 2px solid var(--silver-main);
