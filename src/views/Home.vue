@@ -4,8 +4,9 @@ import Navbar from '@/components/Navbar.vue';
 
 <template>
     <Navbar />
-    <h1>HOME VIEW</h1>
-    <pre>
+    <main>
+        <h1>HOME VIEW</h1>
+        <pre>
         PASSOS ENVIAR QUERIES INPUT A HOME
         1. Event input al search bar
 
@@ -25,9 +26,19 @@ import Navbar from '@/components/Navbar.vue';
         ja que canvia per event input i fer v-for
         pel resultat
     </pre>
+    </main>
+
 </template>
 
 <style scoped>
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
 pre {
     font-family: 'Onest';
     font-weight: bold;

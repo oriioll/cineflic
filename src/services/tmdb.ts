@@ -11,7 +11,7 @@ const headers = { Authorization: `Bearer ${API_TOKEN}` }
  * @author Oriol Plazas Lrón
  * @since 03/04/2026
  */
-const fetchTMDB = async (endpoint: string): Promise<Object> => {
+const fetchTMDB = async (endpoint: string) => {
   const separator = endpoint.includes('?') ? '&' : '?'
   //Set lang to spanish
   const lang = `${separator}language=es-ES`
@@ -29,7 +29,7 @@ const fetchTMDB = async (endpoint: string): Promise<Object> => {
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getGenres = (): Promise<Object> => fetchTMDB('/genre/movie/list')
+export const getGenres = () => fetchTMDB('/genre/movie/list')
 
 /**
  * Get the most popular movies right now
@@ -38,8 +38,7 @@ export const getGenres = (): Promise<Object> => fetchTMDB('/genre/movie/list')
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getPopulars = (): Promise<Object> => fetchTMDB('/movie/popular')
-
+export const getPopulars = () => fetchTMDB('/movie/popular')
 /**
  * Get popular movies for a specific region
  * @param {string} region - The region code (e.g., 'US', 'ES')
@@ -48,8 +47,7 @@ export const getPopulars = (): Promise<Object> => fetchTMDB('/movie/popular')
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getRegionPopulars = (region: string): Promise<Object> =>
-  fetchTMDB(`/movie/popular?region=${region}`)
+export const getRegionPopulars = (region: string) => fetchTMDB(`/movie/popular?region=${region}`)
 
 /**
  * Get details about a specific movie
@@ -59,7 +57,7 @@ export const getRegionPopulars = (region: string): Promise<Object> =>
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMovieById = (movieId: number): Promise<Object> => fetchTMDB(`/movie/${movieId}`)
+export const getMovieById = (movieId: number) => fetchTMDB(`/movie/${movieId}`)
 
 /**
  * Get videos and trailers for a specific movie
@@ -69,7 +67,7 @@ export const getMovieById = (movieId: number): Promise<Object> => fetchTMDB(`/mo
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMovieVideoById = (movieId: number): Promise<Object> =>
+export const getMovieVideoById = (movieId: number) =>
   fetchTMDB(`/movie/${movieId}/videos?include_video_language=es,en`)
 
 /**
@@ -80,8 +78,7 @@ export const getMovieVideoById = (movieId: number): Promise<Object> =>
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMovieCastById = (movieId: number): Promise<Object> =>
-  fetchTMDB(`/movie/${movieId}/credits`)
+export const getMovieCastById = (movieId: number) => fetchTMDB(`/movie/${movieId}/credits`)
 
 /**
  * Search for movies by title or keywords
@@ -91,8 +88,7 @@ export const getMovieCastById = (movieId: number): Promise<Object> =>
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMovieByQuery = (query: string): Promise<Object> =>
-  fetchTMDB(`/search/movie?query=${query}`)
+export const getMovieByQuery = (query: string) => fetchTMDB(`/search/movie?query=${query}`)
 
 /**
  * Get movies from a specific genre
@@ -102,5 +98,4 @@ export const getMovieByQuery = (query: string): Promise<Object> =>
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMoviesByGenre = (genre: string): Promise<Object> =>
-  fetchTMDB(`/discover/movie?with_genres=${genre}`)
+export const getMoviesByGenre = (genre: string) => fetchTMDB(`/discover/movie?with_genres=${genre}`)
