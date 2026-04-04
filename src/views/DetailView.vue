@@ -3,12 +3,14 @@ import Navbar from '@/components/Navbar.vue';
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue';
 import { getMovieById } from '@/services/tmdb';
+import { getMovieVideoById } from '@/services/tmdb';
 import type { DetailedMovie } from '@/types/tmbdTypes';
 const route = useRoute()
 const movieId = route.params.id
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w200'
 const BACKDROP_URL = 'https://image.tmdb.org/t/p/w1280'
 const movie = ref<DetailedMovie | null>(null)
+const trailerUrl = ref<string | null>(null)
 let normalizedDate = ref('')
 onMounted(async () => {
     try {
@@ -16,6 +18,8 @@ onMounted(async () => {
         const data = await getMovieById(Number(movieId))
         movie.value = data
         normalizedDate.value = movie.value?.release_date?.slice(0, 7) ?? ''
+        //get video
+        trailerUrl.value = await getMovieVideoById(Number(movieId))
     } catch (e) {
         console.log(e)
         movie.value!!.title = 'No se puede cargar la pelicula '
@@ -45,6 +49,12 @@ const round1 = (num?: number) => num == null ? null : Math.round(num * 10) / 10;
             </article>
             <p class="resume">{{ movie.overview }}</p>
         </section>
+        <section class="video">
+            <iframe v-if="trailerUrl" :src="trailerUrl" allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                frameborder="0" />
+        </section>
+
 
     </main>
     <main v-else>
@@ -59,10 +69,11 @@ main {
     background-size: cover;
     background-position: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
     padding: 2rem;
-    padding-left: 5rem;
     height: 91vh;
 }
 
@@ -100,10 +111,37 @@ h1 {
     max-width: 600px;
 }
 
-@media (max-width: 1000px) {
+.video {
+    width: 30%;
+    align-self: center;
+}
+
+iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    border-radius: 12px;
+}
+
+@media (max-width: 1200px) {
     main {
-        padding-left: 2rem;
+        flex-direction: column;
     }
 
+    .video {
+        width: 60%;
+    }
+}
+
+@media (max-width: 900px) {
+    .video {
+        width: 80%;
+    }
+}
+
+@media (max-width: 700px) {
+    .video {
+        width: 100%;
+    }
 }
 </style>

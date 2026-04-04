@@ -67,8 +67,17 @@ export const getMovieById = (movieId: number) => fetchTMDB(`/movie/${movieId}`)
  * @since 03/04/2026
  * @see fetchTMDB()
  */
-export const getMovieVideoById = (movieId: number) =>
-  fetchTMDB(`/movie/${movieId}/videos?include_video_language=es,en`)
+export const getMovieVideoById = async (movieId: number) => {
+  const data = await fetchTMDB(`/movie/${movieId}/videos?include_video_language=es,en`)
+  const trailerFound = data.results.find(
+    (v: any) => v.type === 'Trailer' && v.site === 'YouTube' && v.official === true,
+  )
+  if (trailerFound) {
+    return `https://www.youtube.com/embed/${trailerFound.key}?origin=${window.location.origin}`
+  } else {
+    return null
+  }
+}
 
 /**
  * Get the cast and crew for a specific movie
