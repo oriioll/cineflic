@@ -61,3 +61,21 @@ export const getUserLanguage = (): string => {
   const normalizedLang = lang.split('-')[1] ?? 'ES'
   return normalizedLang
 }
+
+/**
+ * Checks if a YT video is available or not using oEmbed YT API
+ * @param key The key of the video you want to check availability
+ * @returns {Promise<Boolean>} If video is available or not
+ * @author Oriol Plazas León
+ * @since 05/04/2026
+ */
+export const checkTrailerAvailable = async (key: string): Promise<boolean> => {
+  try {
+    const result = await fetch(
+      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${key}&format=json`,
+    )
+    return result.ok
+  } catch (e) {
+    return false
+  }
+}

@@ -73,7 +73,10 @@ export const getMovieVideoById = async (movieId: number) => {
     (v: any) => v.type === 'Trailer' && v.site === 'YouTube' && v.official === true,
   )
   if (trailerFound) {
-    return `https://www.youtube.com/embed/${trailerFound.key}?origin=${window.location.origin}`
+    return {
+      video: `https://www.youtube.com/embed/${trailerFound.key}?origin=${window.location.origin}`,
+      key: trailerFound.key,
+    }
   } else {
     return null
   }
