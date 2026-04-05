@@ -19,7 +19,7 @@ const router = useRouter()
 const query = ref('')
 const sendQuery = debounce(() => {
     router.push({ path: route.path, query: { movie: query.value } })
-}, 200)
+}, 500)
 </script>
 
 <template>
