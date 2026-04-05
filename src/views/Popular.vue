@@ -62,4 +62,11 @@ main {
     align-items: center;
     gap: 1rem;
 }
+
+@media (max-width: 700px) {
+    .movieGrid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+}
 </style>

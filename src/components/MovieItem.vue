@@ -92,7 +92,17 @@ button:hover {
 
 @media (max-width: 800px) {
     article img {
-        width: 50%;
+        width: 80%;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        border-radius: 8px;
+        align-self: center;
+    }
+}
+
+@media (max-width: 450px) {
+    article img {
+        width: 70%;
         aspect-ratio: 2/3;
         object-fit: cover;
         border-radius: 8px;
