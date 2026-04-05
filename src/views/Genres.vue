@@ -11,6 +11,7 @@ onMounted(async () => {
     try {
         const data = await getGenres()
         genres.value = data.genres
+        genres.value.sort((a, b) => a.name.localeCompare(b.name))
     } catch (e) {
         console.log(e)
         genres.value = [
