@@ -49,3 +49,15 @@ export const getSpanishWrittenMonth = (monthNumber: number): string => {
   }
   return writtenMonth
 }
+
+/**
+ * Get the user's navigator language and normalizes it to get country code ('ES', 'FR', 'IT')
+ * @returns {string} Normalized user Navigator Language
+ * @author Oriol Plazas León
+ * @since 05/04/2026
+ */
+export const getUserLanguage = (): string => {
+  const lang = navigator.language
+  const normalizedLang = lang.split('-')[1] ?? 'ES'
+  return normalizedLang
+}
