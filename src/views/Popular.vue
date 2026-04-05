@@ -2,12 +2,12 @@
 import Navbar from '@/components/Navbar.vue';
 import MovieItem from '@/components/MovieItem.vue';
 import { getPopulars } from '@/services/tmdb.ts'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import type { Movie } from '@/types/tmbdTypes.ts'
+import { useRoute } from 'vue-router'
 import { getSpanishWrittenMonth } from '@/helpers/helpers.ts'
 
 const popularMovies = ref<Movie[]>([])
-
 onMounted(async () => {
     try {
         const data = await getPopulars()
@@ -19,6 +19,24 @@ onMounted(async () => {
         ]
     }
 })
+
+const route = useRoute()
+const query = computed(() => route.query.movie as string || '')
+const normalize = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+
+//Filtered array, if there is a query, convert to lowercase and check if movie title includes the query.
+//If there isn't a query, use the api returned array
+const filtered = computed(() => {
+    if (query.value) {
+        return popularMovies.value.filter(movie =>
+            normalize(movie.title ?? '').includes(normalize(query.value))
+        )
+    } else {
+        return popularMovies.value
+    }
+})
+
 
 const date = new Date()
 const year = date.getFullYear()
@@ -37,7 +55,10 @@ const normalizedMonth = getSpanishWrittenMonth(month + 1)
             </article>
         </div>
         <section class="movieGrid">
-            <MovieItem v-for="movie in popularMovies" :key="movie.id" :movie="movie" />
+            <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />
+        </section>
+        <section v-if="filtered.length == 0">
+            <h3>No se encontraron resultados</h3>
         </section>
     </main>
 </template>

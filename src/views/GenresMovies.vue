@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar.vue';
 import MovieItem from '@/components/MovieItem.vue';
 import { useRoute } from 'vue-router'
 import { getGenres, getMoviesByGenre } from '@/services/tmdb.ts'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import type { Movie } from '@/types/tmbdTypes.ts'
 const route = useRoute()
 const rawId = route.params.id
@@ -30,6 +30,22 @@ onMounted(async () => {
     }
 })
 
+const query = computed(() => route.query.movie as string || '')
+const normalize = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+
+//Filtered array, if there is a query, convert to lowercase and check if movie title includes the query.
+//If there isn't a query, use the api returned array
+const filtered = computed(() => {
+    if (query.value) {
+        return genreMovies.value.filter(movie =>
+            normalize(movie.title ?? '').includes(normalize(query.value))
+        )
+    } else {
+        return genreMovies.value
+    }
+})
+
 </script>
 
 <template>
@@ -42,7 +58,7 @@ onMounted(async () => {
             </article>
         </div>
         <section class="movieGrid">
-            <MovieItem v-for="movie in genreMovies" :key="movie.id" :movie="movie" />
+            <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />
         </section>
     </main>
 </template>

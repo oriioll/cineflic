@@ -4,7 +4,8 @@ import { getGenres } from '@/services/tmdb.ts'
 import { ref, onMounted } from 'vue'
 import type { Genre } from '@/types/tmbdTypes.ts'
 import GenreItem from '@/components/GenreItem.vue';
-
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 const genres = ref<Genre[]>([])
 
 onMounted(async () => {
@@ -20,6 +21,24 @@ onMounted(async () => {
     }
 })
 
+const route = useRoute()
+const query = computed(() => route.query.movie as string || '')
+const normalize = (str: string) =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+
+//Filtered array, if there is a query, convert to lowercase and check if movie title includes the query.
+//If there isn't a query, use the api returned array
+const filtered = computed(() => {
+    if (query.value) {
+        return genres.value.filter(genre =>
+            normalize(genre.name ?? '').includes(normalize(query.value))
+        )
+    } else {
+        return genres.value
+    }
+})
+
+
 </script>
 
 <template>
@@ -32,7 +51,7 @@ onMounted(async () => {
             </article>
         </div>
         <section class="genreGrid">
-            <GenreItem v-for="genre in genres" :key="genre.id" :genre="genre" />
+            <GenreItem v-for="genre in filtered" :key="genre.id" :genre="genre" />
         </section>
     </main>
 </template>
