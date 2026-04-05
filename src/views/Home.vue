@@ -97,6 +97,17 @@ main {
     gap: 1rem;
 }
 
+@media (max-width: 700px) {
+    .movieGrid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
+
+@media (max-width: 1000px) {
+    main {
+        padding: 1rem;
+    }
+}
 
 /* END TODO STYLES - DELETE*/
 </style>

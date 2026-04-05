@@ -139,6 +139,7 @@ iframe {
         justify-content: center;
         align-items: center;
         gap: 3rem;
+        padding: 1rem;
     }
 
     .video {

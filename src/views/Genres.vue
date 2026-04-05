@@ -83,4 +83,10 @@ main {
     }
 
 }
+
+@media (max-width: 1000px) {
+    main {
+        padding: 1rem;
+    }
+}
 </style>
