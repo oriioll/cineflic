@@ -20,6 +20,7 @@ const goToDetail = () => {
 
 <style scoped>
 article {
+    width: 100%;
     border: solid 2px var(--silver-main);
     border-radius: 8px;
     background-color: var(--bg-card);

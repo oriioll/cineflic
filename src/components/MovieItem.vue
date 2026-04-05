@@ -33,8 +33,10 @@ const goToDetail = () => {
 
 <style scoped>
 article {
+    width: 100%;
     border-radius: 12px;
     padding: 1rem;
+    box-sizing: border-box;
     border: solid 2px var(--silver-main);
     display: flex;
     flex-direction: column;
@@ -61,6 +63,11 @@ article img {
 
 h4 {
     font-size: var(--step-0);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .bottom {
