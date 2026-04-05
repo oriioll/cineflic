@@ -126,6 +126,9 @@ iframe {
 @media (max-width: 1200px) {
     main {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
     }
 
     .video {

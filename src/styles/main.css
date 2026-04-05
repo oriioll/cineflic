@@ -34,6 +34,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 body {
@@ -43,6 +44,8 @@ body {
     font-size: var(--text-base);
     line-height: 1.2;
     -webkit-font-smoothing: antialiased;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 h1 {

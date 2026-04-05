@@ -268,15 +268,23 @@ li a.login:hover {
     transform: translateY(-8px);
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1055px) {
     .right {
         display: none;
     }
+
+    header {
+        padding: 1rem 1rem;
+    }
 }
 
-@media only screen and (min-width: 1001px) {
+@media only screen and (min-width: 1056px) {
     .toggle {
         display: none;
+    }
+
+    .submenu {
+        display: none
     }
 }
 </style>

@@ -89,4 +89,14 @@ button:hover {
     cursor: pointer;
     filter: brightness(1.2);
 }
+
+@media (max-width: 800px) {
+    article img {
+        width: 50%;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        border-radius: 8px;
+        align-self: center;
+    }
+}
 </style>
