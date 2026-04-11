@@ -34,7 +34,7 @@ const goToDetail = () => {
 <style scoped>
 article {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 1rem;
     box-sizing: border-box;
     border: solid 2px var(--silver-main);
@@ -57,7 +57,7 @@ article img {
     width: 80%;
     aspect-ratio: 2/3;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 6px;
     align-self: center;
 }
 
@@ -85,7 +85,7 @@ button {
     font-weight: 600;
     border: none;
     padding: .25rem;
-    border-radius: 7px;
+    border-radius: 6px;
     font-size: .9rem;
     color: var(--silver-light);
     background-color: var(--silver-dark);

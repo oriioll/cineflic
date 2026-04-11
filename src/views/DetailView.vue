@@ -130,7 +130,7 @@ iframe {
     width: 100%;
     aspect-ratio: 16/9;
     border: none;
-    border-radius: 12px;
+    border-radius: 6px;
 }
 
 @media (max-width: 1200px) {

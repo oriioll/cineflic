@@ -150,7 +150,7 @@ li {
     justify-content: flex-start;
     gap: .75rem;
     border: solid 2px var(--silver-main);
-    border-radius: 12px;
+    border-radius: 8px;
     padding: .5rem;
     width: 300px;
     transition: all .3s ease;

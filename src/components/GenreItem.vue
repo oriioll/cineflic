@@ -22,7 +22,7 @@ const goToDetail = () => {
 article {
     width: 100%;
     border: solid 2px var(--silver-main);
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: var(--bg-card);
     padding: 1rem;
     display: flex;
