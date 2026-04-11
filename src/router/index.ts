@@ -6,6 +6,7 @@ import PopularLocal from '@/views/PopularLocal.vue'
 import Genres from '@/views/Genres.vue'
 import GenresMovies from '@/views/GenresMovies.vue'
 import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
 
 import { checkIfItsLogged } from '@/services/supabase'
 const router = createRouter({
@@ -26,6 +27,17 @@ const router = createRouter({
           if (await checkIfItsLogged()) {
             return '/home'
           }
+        } catch (e) {
+          return true
+        }
+      },
+    },
+    {
+      path: '/register',
+      component: Register,
+      beforeEnter: async () => {
+        try {
+          if (await checkIfItsLogged()) return '/home'
         } catch (e) {
           return true
         }

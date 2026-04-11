@@ -13,7 +13,6 @@ const handleLogin = async () => {
         isLoading.value = true
         await supabaseLogin(email.value, password.value)
         error.value = false
-        isLoading.value = true
         router.push('/home')
     } catch (e) {
         isLoading.value = false
@@ -92,7 +91,7 @@ form {
     gap: 2rem;
     max-width: 500px;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .formPart {
@@ -119,7 +118,7 @@ input {
     font-size: var(--step-0);
     outline: none;
     border: solid 2px var(--silver-main);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: .5rem;
     transition: all .3s ease;
 }
@@ -141,7 +140,7 @@ button {
     width: 100%;
     max-width: 420px;
     background-color: var(--accent-special);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: .5rem;
     border: none;
     font-family: 'Onest', sans-serif;

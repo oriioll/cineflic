@@ -62,6 +62,7 @@ export const supabaseRegister = async (uEmail: string, uPassword: string) => {
   if (error) {
     throw new Error(error.message)
   }
+  await supabaseLogin(uEmail, uPassword)
   return data
 }
 
