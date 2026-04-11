@@ -5,6 +5,9 @@ import DetailView from '@/views/DetailView.vue'
 import PopularLocal from '@/views/PopularLocal.vue'
 import Genres from '@/views/Genres.vue'
 import GenresMovies from '@/views/GenresMovies.vue'
+import Login from '@/views/Login.vue'
+
+import { checkIfItsLogged } from '@/services/supabase'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -15,6 +18,19 @@ const router = createRouter({
     { path: '/popular/local', component: PopularLocal },
     { path: '/generos', component: Genres },
     { path: '/generos/:id', component: GenresMovies },
+    {
+      path: '/login',
+      component: Login,
+      beforeEnter: async () => {
+        try {
+          if (await checkIfItsLogged()) {
+            return '/home'
+          }
+        } catch (e) {
+          return true
+        }
+      },
+    },
   ],
 })
 

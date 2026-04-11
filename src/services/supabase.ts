@@ -10,6 +10,22 @@ export const getCurrentSession = async () => {
 }
 
 /**
+ * Checks if there's a user logged
+ * @returns true if its logged, false if not
+ * @author Oriol Plazas León
+ * @since 11/04/2026
+ * @see supabase.auth.getSession()
+ */
+export const checkIfItsLogged = async () => {
+  const { data } = await supabase.auth.getSession()
+  if (data.session) {
+    return true
+  } else {
+    return false
+  }
+}
+
+/**
  * Signs in a User using supabase signInWithPassword supabase method
  * @param uEmail The email of the user
  * @param uPassword The password of the user
@@ -18,7 +34,7 @@ export const getCurrentSession = async () => {
  * @since 11/04/2026
  * @see supabase.auth.signInWithPassword()
  */
-const supabaseLogin = async (uEmail: string, uPassword: string) => {
+export const supabaseLogin = async (uEmail: string, uPassword: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: uEmail,
     password: uPassword,
@@ -38,7 +54,7 @@ const supabaseLogin = async (uEmail: string, uPassword: string) => {
  * @since 11/04/2026
  * @see supabase.auth.signUp()
  */
-const supabaseRegister = async (uEmail: string, uPassword: string) => {
+export const supabaseRegister = async (uEmail: string, uPassword: string) => {
   const { data, error } = await supabase.auth.signUp({
     email: uEmail,
     password: uPassword,
@@ -55,7 +71,7 @@ const supabaseRegister = async (uEmail: string, uPassword: string) => {
  * @since 11/04/2026
  * @see supabase.auth.signOut()
  */
-const supabaseLogout = async () => {
+export const supabaseLogout = async () => {
   const { error } = await supabase.auth.signOut()
   if (error) {
     throw new Error(error.message)

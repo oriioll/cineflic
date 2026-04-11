@@ -108,6 +108,4 @@ main {
         padding: 1rem;
     }
 }
-
-/* END TODO STYLES - DELETE*/
 </style>
