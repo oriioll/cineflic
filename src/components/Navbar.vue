@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useGetUserOrNull } from '@/composables/handleAuth';
 import { useRoute, useRouter } from 'vue-router'
 import { debounce } from 'lodash'
+import { supabaseLogout } from '@/services/supabase';
 const { user } = useGetUserOrNull()
 
 const submenuOpened = ref(false)
@@ -20,6 +21,14 @@ const query = ref('')
 const sendQuery = debounce(() => {
     router.push({ path: route.path, query: { movie: query.value } })
 }, 500)
+
+const logout = async () => {
+    try {
+        await supabaseLogout()
+    } catch {
+
+    }
+}
 </script>
 
 <template>
@@ -46,13 +55,13 @@ const sendQuery = debounce(() => {
                 </li>
                 <li>
                     <RouterLink v-if="user == null" to="/login" class="login head">Inicia Sesion</RouterLink>
-                    <RouterLink v-else to="/perfil" class="profile head">
+                    <RouterLink v-else to="/home" class="profile head" @click="logout">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd"
                                 d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
                                 clip-rule="evenodd" />
                         </svg>
-                        <span>Perfil</span>
+                        <span>Cerrar Sesión</span>
                     </RouterLink>
                 </li>
             </ul>
@@ -68,13 +77,13 @@ const sendQuery = debounce(() => {
                 <ul>
                     <li>
                         <RouterLink v-if="user == null" to="/login" class="login option">Inicia Sesion</RouterLink>
-                        <RouterLink v-else to="/perfil" class="profile option">
+                        <RouterLink v-else to="/home" class="profile option" @click="logout">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                                 <path fill="currentColor" fill-rule="evenodd"
                                     d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076q.188-.245.36-.502A9.96 9.96 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.96 9.96 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22q.324 0 .644-.02a9.95 9.95 0 0 0 5.031-1.745a10 10 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
                                     clip-rule="evenodd" />
                             </svg>
-                            <span>Perfil</span>
+                            <span>Cerrar Sesión</span>
                         </RouterLink>
                     </li>
                     <li>

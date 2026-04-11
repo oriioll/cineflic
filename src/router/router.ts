@@ -9,6 +9,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 
 import { checkIfItsLogged } from '@/services/supabase'
+import Collection from '@/views/Collection.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -43,6 +44,7 @@ const router = createRouter({
         }
       },
     },
+    { path: '/coleccion', component: Collection },
   ],
 })
 

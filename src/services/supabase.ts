@@ -1,4 +1,4 @@
-import { supabase } from '@/supabase'
+import { supabase } from '@/supabase/supabaseClient'
 
 export const getCurrentSession = async () => {
   const { data } = await supabase.auth.getSession()
@@ -77,4 +77,5 @@ export const supabaseLogout = async () => {
   if (error) {
     throw new Error(error.message)
   }
+  window.location.reload()
 }
