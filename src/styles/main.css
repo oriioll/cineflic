@@ -81,3 +81,22 @@ small {
     font-size: 0.8rem;
     color: var(--silver-dark);
 }
+
+body::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(163, 163, 163, 0.2);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(163, 163, 163, 0.8);
+}
