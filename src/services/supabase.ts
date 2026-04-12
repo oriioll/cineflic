@@ -126,7 +126,7 @@ export const getUserIdOrNull = async () => {
  * @throws Error if there is not userLogged, if the insert is incorrect or if the status isn't correct
  */
 export const addMovieToStatus = async (status: string, movieId: number) => {
-  const availableStatus = ['favoritos', 'para-ver', 'vista']
+  const availableStatus = ['favoritos', 'para-ver', 'vistas']
   if (!availableStatus.includes(status)) {
     throw new Error('No se puede añadir pelicula a ese estado')
   }

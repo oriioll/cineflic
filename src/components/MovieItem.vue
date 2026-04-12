@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, onMounted } from 'vue'
 const router = useRouter()
 
 import type { Movie } from '@/types/tmbdTypes.ts'
+import { addMovieToStatus, checkIfItsLogged } from '@/services/supabase';
 const props = defineProps<{
     movie: Movie
 }>()
@@ -17,13 +18,45 @@ const goToDetail = () => {
     router.push(`/movie/${props.movie.id}`)
 }
 
+const isLoggedIn = ref(false)
+onMounted(async () => {
+    isLoggedIn.value = await checkIfItsLogged()
+})
+
 const isFav = ref(false)
 const isSeen = ref(false)
 const toSee = ref(false)
 
-const toggleFav = () => { isFav.value = !isFav.value }
-const toggleSeen = () => { isSeen.value = !isSeen.value }
-const toggleToSee = () => { toSee.value = !toSee.value }
+const toggleFav = () => {
+    if (!isFav.value) {
+        try {
+            addMovieToStatus('favoritos', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
+    }
+    isFav.value = !isFav.value
+}
+const toggleSeen = () => {
+    if (!isSeen.value) {
+        try {
+            addMovieToStatus('vistas', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
+    }
+    isSeen.value = !isSeen.value
+}
+const toggleToSee = () => {
+    if (!toSee.value) {
+        try {
+            addMovieToStatus('para-ver', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
+    }
+    toSee.value = !toSee.value
+}
 </script>
 
 <template>
@@ -34,7 +67,7 @@ const toggleToSee = () => { toSee.value = !toSee.value }
             <p>{{ normalizedDate }}</p>
             <p><strong>{{ roundedVote }}</strong>/10</p>
         </div>
-        <div class="action">
+        <div v-if="isLoggedIn" class="action">
             <button @click.stop="toggleFav">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
                     <path :fill="isFav ? 'var(--silver-main)' : 'none'" stroke="var(--silver-main)"
