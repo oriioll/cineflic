@@ -13,7 +13,7 @@ const goToDetail = () => {
 </script>
 
 <template>
-    <article @click="goToDetail">
+    <article @click="goToDetail" role="article" :aria-label="`Género: ${genre.name}`">
         <h4>{{ genre.name }}</h4>
     </article>
 </template>

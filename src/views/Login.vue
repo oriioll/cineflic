@@ -29,15 +29,17 @@ const handleLogin = async () => {
             <h1>Bienvenido de nuevo</h1>
             <p class="subtitle">Inicia sesión para acceder a tu colección</p>
         </section>
-        <form @submit.prevent="handleLogin">
+        <form @submit.prevent="handleLogin" method="post" novalidate>
             <article class="formPart">
-                <label for="email">Correo electrónico</label>
-                <input type="text" placeholder="tu@correo.com" v-model="email" />
+                <label for="login-email">Correo electrónico</label>
+                <input id="login-email" type="email" name="email" placeholder="tu@correo.com" v-model="email"
+                    autocomplete="email" required aria-required="true" />
             </article>
 
             <article class="formPart">
-                <label for="password">Contraseña</label>
-                <input type="password" placeholder="Mínimo 8 caracteres" v-model="password" />
+                <label for="login-password">Contraseña</label>
+                <input id="login-password" type="password" name="password" placeholder="Mínimo 8 caracteres"
+                    v-model="password" autocomplete="current-password" required aria-required="true" />
             </article>
             <button v-if="!isLoading" type="submit">Iniciar sesión</button>
             <button v-else type="submit">

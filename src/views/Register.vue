@@ -64,15 +64,17 @@ const getSupabaseErrorMessage = (error: string) => {
             <h1>Crea tu cuenta</h1>
             <p class="subtitle">Empieza a guardar tus películas favoritas</p>
         </section>
-        <form @submit.prevent="handleRegister">
+        <form @submit.prevent="handleRegister" method="post" novalidate>
             <article class="formPart">
-                <label for="email">Correo electrónico</label>
-                <input type="text" placeholder="tu@correo.com" v-model="email" />
+                <label for="register-email">Correo electrónico</label>
+                <input id="register-email" type="email" name="email" placeholder="tu@correo.com" v-model="email"
+                    autocomplete="email" required aria-required="true" />
             </article>
 
             <article class="formPart">
-                <label for="password">Contraseña</label>
-                <input type="password" placeholder="Mínimo 8 caracteres" v-model="password" />
+                <label for="register-password">Contraseña</label>
+                <input id="register-password" type="password" name="password" placeholder="Mínimo 8 caracteres"
+                    v-model="password" autocomplete="new-password" required aria-required="true" />
             </article>
             <button v-if="!isLoading" type="submit">Iniciar sesión</button>
             <button v-else type="submit">
