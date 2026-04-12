@@ -116,3 +116,30 @@ export const getUserIdOrNull = async () => {
   const { data } = await supabase.auth.getSession()
   return data.session?.user.id || null
 }
+
+/**
+ * Inserts a movie into DB - table: user_movies
+ * @param status The status of the movie - 'favoritos', 'para-ver', 'vistas'
+ * @param movieId The id of the movie you want to insert
+ * @author Oriol Plazas León
+ * @since 12/04/2026
+ * @throws Error if there is not userLogged, if the insert is incorrect or if the status isn't correct
+ */
+export const addMovieToStatus = async (status: string, movieId: number) => {
+  const availableStatus = ['favoritos', 'para-ver', 'vista']
+  if (!availableStatus.includes(status)) {
+    throw new Error('No se puede añadir pelicula a ese estado')
+  }
+  const userId = await getUserIdOrNull()
+  if (!userId) {
+    throw new Error('No user logged')
+  }
+  const { error } = await supabase.from('user_movies').insert({
+    movie_id: movieId,
+    status: status,
+    user_id: userId,
+  })
+  if (error) {
+    throw new Error(error.message)
+  }
+}
