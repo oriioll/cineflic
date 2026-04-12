@@ -79,3 +79,40 @@ export const supabaseLogout = async () => {
   }
   window.location.reload()
 }
+
+/**
+ * Gets all the ids of the movies that are stored into users db with param status
+ * @param status The status of the movie - 'favoritos', 'para-ver', 'vistas'
+ * @returns Array with movies ids
+ * @author Oriol Plazas León
+ * @since 12/04/2026
+ * @see getUserIdOrNull()
+ */
+export const getUserMoviesWithStatus = async (status: string) => {
+  const userId = await getUserIdOrNull()
+  if (!userId) {
+    throw new Error('No user logged')
+  }
+  const { data, error } = await supabase
+    .from('user_movies')
+    .select('movie_id')
+    .eq('user_id', userId)
+    .eq('status', status)
+  if (error) {
+    throw new Error(error.message)
+  }
+  console.log(data)
+  return data.map((row) => row.movie_id)
+}
+
+/**
+ * Gets the id of the current logged user
+ * @returns The current user id if exists, or null
+ * @author Oriol Plazas León
+ * @since 12/04/2026
+ * @see supabase.auth.getSession()
+ */
+export const getUserIdOrNull = async () => {
+  const { data } = await supabase.auth.getSession()
+  return data.session?.user.id || null
+}

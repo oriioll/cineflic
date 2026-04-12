@@ -94,6 +94,5 @@ main {
     .movieGrid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
-
 }
 </style>
