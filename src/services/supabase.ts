@@ -172,6 +172,14 @@ export const deleteMovieFromStatus = async (status: string, movieId: number) => 
   }
 }
 
+/**
+ * Gets an array of all the statuses of that movie registered by the logged user
+ * @param movieId The id of the movie you want to check the statuses
+ * @returns string array of the statuses of that movie stored by the user or empty array
+ * @author Oriol Plazas León
+ * @since 13/04/2026
+ * @throws Error if there is not userLogged, if the select is incorrect
+ */
 export const getMovieStatuses = async (movieId: number) => {
   const userId = await getUserIdOrNull()
   if (!userId) {
