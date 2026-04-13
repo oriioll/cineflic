@@ -4,7 +4,7 @@ import { ref, type Ref, onMounted } from 'vue'
 const router = useRouter()
 
 import type { Movie } from '@/types/tmbdTypes.ts'
-import { addMovieToStatus, checkIfItsLogged, deleteMovieFromStatus } from '@/services/supabase';
+import { addMovieToStatus, checkIfItsLogged, deleteMovieFromStatus, getMovieStatuses } from '@/services/supabase';
 const props = defineProps<{
     movie: Movie
 }>()
@@ -27,48 +27,64 @@ const isFav = ref(false)
 const isSeen = ref(false)
 const toSee = ref(false)
 
-const toggleFav = () => {
+onMounted(async () => {
+    const movieStatuses = await getMovieStatuses(props.movie.id!!)
+    if (movieStatuses.includes('favoritos')) {
+        isFav.value = true
+    }
+    if (movieStatuses.includes('vistas')) {
+        isSeen.value = true
+    }
+    if (movieStatuses.includes('para-ver')) {
+        toSee.value = true
+    }
+})
+const emit = defineEmits(['update-collection'])
+const toggleFav = async () => {
     if (!isFav.value) {
         try {
-            addMovieToStatus('favoritos', props.movie.id!!)
+            await addMovieToStatus('favoritos', props.movie.id!!)
         } catch (e: any) {
             console.log(e.message)
         }
     } else {
         try {
-            deleteMovieFromStatus('favoritos', props.movie.id!!)
+            await deleteMovieFromStatus('favoritos', props.movie.id!!)
+            emit('update-collection')
         } catch (e: any) {
             console.log(e.message)
         }
     }
     isFav.value = !isFav.value
 }
-const toggleSeen = () => {
+const toggleSeen = async () => {
     if (!isSeen.value) {
         try {
-            addMovieToStatus('vistas', props.movie.id!!)
+            await addMovieToStatus('vistas', props.movie.id!!)
         } catch (e: any) {
             console.log(e.message)
         }
     } else {
         try {
-            deleteMovieFromStatus('vistas', props.movie.id!!)
+            await deleteMovieFromStatus('vistas', props.movie.id!!)
+            emit('update-collection')
         } catch (e: any) {
             console.log(e.message)
         }
     }
     isSeen.value = !isSeen.value
 }
-const toggleToSee = () => {
+const toggleToSee = async () => {
     if (!toSee.value) {
         try {
-            addMovieToStatus('para-ver', props.movie.id!!)
+            await addMovieToStatus('para-ver', props.movie.id!!)
         } catch (e: any) {
             console.log(e.message)
         }
     } else {
         try {
-            deleteMovieFromStatus('para-ver', props.movie.id!!)
+            await deleteMovieFromStatus('para-ver', props.movie.id!!)
+            emit('update-collection')
         } catch (e: any) {
             console.log(e.message)
         }

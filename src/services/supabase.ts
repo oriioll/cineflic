@@ -144,6 +144,14 @@ export const addMovieToStatus = async (status: string, movieId: number) => {
   }
 }
 
+/**
+ * Deletes a movie from DB - table: user_movies
+ * @param status The status of the movie - 'favoritos', 'para-ver', 'vistas'
+ * @param movieId The id of the movie you want to delete
+ * @author Oriol Plazas León
+ * @since 13/04/2026
+ * @throws Error if there is not userLogged, if the delete is incorrect or if the status isn't correct
+ */
 export const deleteMovieFromStatus = async (status: string, movieId: number) => {
   const availableStatus = ['favoritos', 'para-ver', 'vistas']
   if (!availableStatus.includes(status)) {
@@ -153,13 +161,33 @@ export const deleteMovieFromStatus = async (status: string, movieId: number) => 
   if (!userId) {
     throw new Error('No user logged')
   }
-  const { error } = await supabase
+  const response = await supabase
     .from('user_movies')
     .delete()
     .eq('user_id', userId)
     .eq('status', status)
     .eq('movie_id', movieId)
-  if (error) {
+  if (response.error) {
     throw new Error('Cannot delete data')
+  }
+}
+
+export const getMovieStatuses = async (movieId: number) => {
+  const userId = await getUserIdOrNull()
+  if (!userId) {
+    throw new Error('No user logged')
+  }
+  const { data, error } = await supabase
+    .from('user_movies')
+    .select('status')
+    .eq('movie_id', movieId)
+    .eq('user_id', userId)
+  if (error) {
+    throw new Error('Cannot get movies statuses')
+  }
+  if (data && data.length > 0) {
+    return data.map((e) => e.status)
+  } else {
+    return []
   }
 }

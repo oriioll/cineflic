@@ -30,6 +30,7 @@ watch(section, async (newTab) => {
 const loadMovies = async (section: string) => {
     try {
         error.value = false
+        movies.value = []
         moviesId.value = await getUserMoviesWithStatus(section)
         await setMoviesWithId(moviesId.value)
         console.log(movies.value)
@@ -61,7 +62,8 @@ const setMoviesWithId = async (idArr: number[]) => {
             </article>
         </div>
         <section v-if="!error && movies.length > 0" class="movieGrid">
-            <MovieItem v-for="movie in movies" :key="movie.id" :movie="movie" />
+            <MovieItem v-for="movie in movies" :key="movie.id" :movie="movie"
+                @update-collection="loadMovies(section)" />
         </section>
         <section v-else-if="!error && movies.length <= 0" class="noFilms">
             <h3>No tienes películas en {{ section }}</h3>
