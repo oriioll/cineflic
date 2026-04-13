@@ -143,3 +143,23 @@ export const addMovieToStatus = async (status: string, movieId: number) => {
     throw new Error(error.message)
   }
 }
+
+export const deleteMovieFromStatus = async (status: string, movieId: number) => {
+  const availableStatus = ['favoritos', 'para-ver', 'vistas']
+  if (!availableStatus.includes(status)) {
+    throw new Error('No se puede borrar la pelicula de ese estado')
+  }
+  const userId = await getUserIdOrNull()
+  if (!userId) {
+    throw new Error('No user logged')
+  }
+  const { error } = await supabase
+    .from('user_movies')
+    .delete()
+    .eq('user_id', userId)
+    .eq('status', status)
+    .eq('movie_id', movieId)
+  if (error) {
+    throw new Error('Cannot delete data')
+  }
+}

@@ -4,7 +4,7 @@ import { ref, type Ref, onMounted } from 'vue'
 const router = useRouter()
 
 import type { Movie } from '@/types/tmbdTypes.ts'
-import { addMovieToStatus, checkIfItsLogged } from '@/services/supabase';
+import { addMovieToStatus, checkIfItsLogged, deleteMovieFromStatus } from '@/services/supabase';
 const props = defineProps<{
     movie: Movie
 }>()
@@ -34,6 +34,12 @@ const toggleFav = () => {
         } catch (e: any) {
             console.log(e.message)
         }
+    } else {
+        try {
+            deleteMovieFromStatus('favoritos', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
     }
     isFav.value = !isFav.value
 }
@@ -44,6 +50,12 @@ const toggleSeen = () => {
         } catch (e: any) {
             console.log(e.message)
         }
+    } else {
+        try {
+            deleteMovieFromStatus('vistas', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
     }
     isSeen.value = !isSeen.value
 }
@@ -51,6 +63,12 @@ const toggleToSee = () => {
     if (!toSee.value) {
         try {
             addMovieToStatus('para-ver', props.movie.id!!)
+        } catch (e: any) {
+            console.log(e.message)
+        }
+    } else {
+        try {
+            deleteMovieFromStatus('para-ver', props.movie.id!!)
         } catch (e: any) {
             console.log(e.message)
         }
