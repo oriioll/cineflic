@@ -50,9 +50,6 @@ const normalizedMonth = getSpanishWrittenMonth(month + 1)
     <main>
         <div class="top">
             <h1>Populares - {{ normalizedMonth + ' ' + year }}</h1>
-            <article>
-                <p>filter</p>
-            </article>
         </div>
         <section class="movieGrid">
             <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />

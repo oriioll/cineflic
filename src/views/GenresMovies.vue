@@ -53,9 +53,6 @@ const filtered = computed(() => {
     <main>
         <div class="top">
             <h1>{{ genreName }}</h1>
-            <article>
-                <p>filter</p>
-            </article>
         </div>
         <section class="movieGrid">
             <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />

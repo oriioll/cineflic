@@ -46,9 +46,6 @@ const filtered = computed(() => {
     <main>
         <div class="top">
             <h1>Generos</h1>
-            <article>
-                <p>filter</p>
-            </article>
         </div>
         <section class="genreGrid">
             <GenreItem v-for="genre in filtered" :key="genre.id" :genre="genre" />

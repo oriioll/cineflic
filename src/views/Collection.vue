@@ -57,9 +57,6 @@ const setMoviesWithId = async (idArr: number[]) => {
         <CollectionNavbar />
         <div class="top">
             <h1>{{ section }}</h1>
-            <article>
-                <p>filter</p>
-            </article>
         </div>
         <section v-if="!error && movies.length > 0" class="movieGrid">
             <MovieItem v-for="movie in movies" :key="movie.id" :movie="movie"

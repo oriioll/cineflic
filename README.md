@@ -1,42 +1,85 @@
-# CineFlic
+# 🎬 CineFlic
 
-This template should help get you started developing with Vue 3 in Vite.
+**CineFlic is a movie discovery web app that lets you explore popular films, search by genre, watch trailers, and manage your personal collection.**
 
-## Recommended IDE Setup
+🌐 **Live demo:** [mycineflic.vercel.app](https://mycineflic.vercel.app)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## Screenshots
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Home
 
-## Type Support for `.vue` Imports in TS
+![Home](public/mockups/mockupHome.png)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Movie detail
 
-## Customize configuration
+![Movie detail](public/mockups/mockupMovie.png)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Personal collection
 
-## Project Setup
+![Collection](public/mockups/mockupFavs.png)
 
-```sh
+---
+
+## Features
+
+- 🔍 **Search** — find any movie with real-time search and debounce
+- 🎭 **Browse by genre** — filter movies by category
+- 🌍 **Regional popular** — discover what's trending in your country
+- 🎬 **Movie detail** — overview, trailer, cast, release date and rating
+- ❤️ **Favorites** — save movies to your personal lists (requires login)
+- 🕐 **Watchlist** — keep track of what you want to watch
+- ✅ **Watched** — mark movies as seen
+- 🔐 **Authentication** — sign up and log in with email and password
+
+---
+
+## Tech stack
+
+| Area            | Technology         |
+| --------------- | ------------------ |
+| Frontend        | Vue 3 + TypeScript |
+| Routing         | Vue Router         |
+| Auth & Database | Supabase           |
+| Movie data      | TMDB API           |
+| Deploy          | Vercel             |
+
+---
+
+## API
+
+Movie data is provided by [TMDB](https://www.themoviedb.org/).
+
+> This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.
+
+---
+
+## Getting started
+
+```bash
+# Install dependencies
 npm install
-```
 
-### Compile and Hot-Reload for Development
+# Set up environment variables
+cp .env.example .env
+# Add your TMDB and Supabase keys
 
-```sh
+# Run development server
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Environment variables
 
-```sh
-npm run build
+```env
+VITE_TMDB_API_TOKEN=your_tmdb_token
+VITE_TMDB_API_KEY=your_tmbd_api_key
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+---
+
+## Author
+
+**Oriol Plazas León** — DAW Student
