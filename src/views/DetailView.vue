@@ -8,6 +8,7 @@ import type { DetailedMovie } from '@/types/tmbdTypes';
 import { checkTrailerAvailable } from '@/helpers/helpers';
 import { addMovieToStatus, checkIfItsLogged, deleteMovieFromStatus, getMovieStatuses } from '@/services/supabase';
 
+const isLoading = ref(false)
 const route = useRoute()
 const movieId = route.params.id
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w200'
@@ -19,6 +20,7 @@ const videoIsAvailable = ref(false)
 const error = ref(false)
 onMounted(async () => {
     try {
+        isLoading.value = true
         //getting movie
         const data = await getMovieById(Number(movieId))
         movie.value = data
@@ -29,6 +31,7 @@ onMounted(async () => {
             trailerUrl.value = videoObject.video
             videoIsAvailable.value = await checkTrailerAvailable(videoObject.key)
         }
+        isLoading.value = false
     } catch (e) {
         console.log(e)
         error.value = true
@@ -111,7 +114,16 @@ const toggleToSee = async () => {
 
 <template>
     <Navbar />
-    <main v-if="error">
+    <main v-if="isLoading" class="isLoadingMain">
+        <section class="info">
+            <div class="skeleton info-box"></div>
+        </section>
+
+        <section class="video">
+            <div class="skeleton video-box"></div>
+        </section>
+    </main>
+    <main v-else-if="error">
         <h1>No se puede cargar la pelicula</h1>
     </main>
     <main v-else-if="movie"
@@ -159,9 +171,8 @@ const toggleToSee = async () => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 frameborder="0" @error="trailerUrl = null" />
         </section>
-
-
     </main>
+
     <main v-else>
         <h1>Pelicula no disponible</h1>
     </main>
@@ -242,6 +253,37 @@ iframe {
     padding: .25rem;
     display: flex;
     align-items: center;
+}
+
+.skeleton {
+    background: linear-gradient(90deg,
+            #1a1a1a 25%,
+            #2a2a2a 50%,
+            #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+    border-radius: 8px;
+    opacity: .2;
+}
+
+.info-box {
+    width: 800px;
+    height: 600px;
+}
+
+.video-box {
+    width: 500px;
+    height: 280px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 @media (max-width: 1200px) {
