@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 import { getGenres, getMoviesByGenre } from '@/services/tmdb.ts'
 import { ref, onMounted, computed } from 'vue'
 import type { Movie } from '@/types/tmbdTypes.ts'
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 const route = useRoute()
 const rawId = route.params.id
 const genreMovies = ref<Movie[]>([])
@@ -58,6 +59,7 @@ const filtered = computed(() => {
             <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />
         </section>
     </main>
+    <FooterCineFlic />
 </template>
 
 <style scoped>

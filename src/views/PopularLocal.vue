@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 
 import type { Movie } from '@/types/tmbdTypes.ts'
 import { getSpanishWrittenMonth } from '@/helpers/helpers.ts'
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 
 const popularMovies = ref<Movie[]>([])
 let lang = ref('')
@@ -54,6 +55,7 @@ const filtered = computed(() => {
             <MovieItem v-for="movie in filtered" :key="movie.id" :movie="movie" />
         </section>
     </main>
+    <FooterCineFlic />
 </template>
 
 <style scoped>

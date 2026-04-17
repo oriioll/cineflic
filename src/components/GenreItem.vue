@@ -41,5 +41,6 @@ article:hover {
 
 h4 {
     text-align: center;
+    font-size: var(--step-0);
 }
 </style>

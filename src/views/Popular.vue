@@ -6,6 +6,7 @@ import { ref, onMounted, computed } from 'vue'
 import type { Movie } from '@/types/tmbdTypes.ts'
 import { useRoute } from 'vue-router'
 import { getSpanishWrittenMonth } from '@/helpers/helpers.ts'
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 
 const popularMovies = ref<Movie[]>([])
 onMounted(async () => {
@@ -58,6 +59,7 @@ const normalizedMonth = getSpanishWrittenMonth(month + 1)
             <h3>No se encontraron resultados</h3>
         </section>
     </main>
+    <FooterCineFlic />
 </template>
 
 <style scoped>

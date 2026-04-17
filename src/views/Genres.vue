@@ -6,6 +6,7 @@ import type { Genre } from '@/types/tmbdTypes.ts'
 import GenreItem from '@/components/GenreItem.vue';
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 const genres = ref<Genre[]>([])
 
 onMounted(async () => {

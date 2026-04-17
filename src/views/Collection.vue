@@ -8,6 +8,7 @@ import CollectionNavbar from '@/components/CollectionNavbar.vue';
 import { useRoute } from 'vue-router'
 import { getMovieById } from '@/services/tmdb';
 import MovieItem from '@/components/MovieItem.vue';
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 const isLoggedIn = ref(false)
 const route = useRoute()
 const errorMsg = ref('')

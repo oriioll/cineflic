@@ -7,6 +7,7 @@ import type { Genre, Movie } from '@/types/tmbdTypes';
 import HomeSection from '@/components/HomeSection.vue';
 import { useRoute } from 'vue-router'
 import MovieItem from '@/components/MovieItem.vue'
+import FooterCineFlic from '@/components/FooterCineFlic.vue';
 
 let lang = ref('')
 const genresArr = ref<Genre[]>([])
@@ -81,6 +82,7 @@ onMounted(async () => {
             <MovieItem v-for="movie in searchResults" :key="movie.id" :movie="movie" />
         </section>
     </main>
+    <FooterCineFlic />
 </template>
 
 <style scoped>
